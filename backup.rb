@@ -24,7 +24,7 @@ inputFolder.listAllFiles.each do |file|
     next
   else
     puts "Copy file #{file} to dir #{backupDirPath}"
-	counter = counter + 1
+    counter = counter + 1
     backupFolder.add(file)
   end
 end
