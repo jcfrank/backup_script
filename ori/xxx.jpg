@@ -1,0 +1,65 @@
+inputDir = '/Users/jason/Desktop/fileBackupTest/ori'
+backupDir = '/Users/jason/Desktop/fileBackupTest/target'
+
+
+#create a hash here
+$filesPathHash =  Hash.new
+
+#if we have already got the file names array, we just return the stored array,
+#otherwise, we got the file names array, and return the array
+def getFilesPath(dirPath)
+  #return an array which contains all files path
+  dirPath = dirPath + "*"
+  if $filesPathHash.key?(dirPath)
+    return $filesPathHash[dirPath]
+  else
+	$filesPathHash[dirPath]=Dir[dirPath]
+    return $filesPathHash[dirPath]
+  end
+end
+
+def getFileNameOnly(path)
+  # remove the path, just return the file name
+  return path.split('/').last
+end
+
+def isFileNameContained(filePath, targetDir)
+  newFileName = getFileNameOnly(filePath)
+  getFilesPath(targetDir).each do |filePath|
+    fileName = getFileNameOnly(filePath)
+	if fileName.eql?(newFileName)
+	  return true
+	end
+  end
+  return false
+end
+
+def isFileContained(filePath, targetDir)
+  #if there is a file the same as filePath in targetDir, return true, otherwise returns false
+  isFileNameContained(filePath, targetDir)
+end
+
+def copyFile(filePath, targetDir)
+  # copy the filePath to the targetDir
+end
+
+inputArr = getFilesPath(inputDir)
+
+counter = 0
+inputArr.each do |filePath|
+  if isFileContained(filePath, backupDir)
+    next
+  else
+    puts "Copy file #{filePath} to dir #{backupDir}"
+	counter = counter + 1
+    copyFile( filePath, backupDir)
+  end
+end
+
+if counter > 1
+  puts "back up success, #{counter} files are backed up"
+elsif counter == 1
+  puts "back up success, 1 file is backed up"
+else
+  puts "no files are backed up"
+end
