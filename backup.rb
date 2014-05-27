@@ -1,32 +1,34 @@
 require 'fileutils'
 require_relative 'folder'
 
-def printResult(counter)
-    if counter > 1
-        puts "back up success, #{counter} entries are backed up"
-        elsif counter == 1
-        puts "back up success, 1 entry is backed up"
-        else
-        puts "no entries are backed up"
-    end
-end
-
-inputDirPath = './ori/'
-backupDirPath = './target/'
-
-inputFolder = Folder.new inputDirPath
-backupFolder = Folder.new backupDirPath
-
-
-counter = 0
-inputFolder.listAllFiles.each do |file|
-  if backupFolder.isExist?(file)
-    next
-  else
-    puts "Copy file #{file} to dir #{backupDirPath}"
-    counter = counter + 1
-    backupFolder.add(file)
+class BackupAction
+    
+  def set_source_and_target(source,target)
+      @sourceFolder = Folder.new source
+      @targetFolder = Folder.new target
   end
+  
+  def backup
+      @counter = 0
+      @sourceFolder.listAllFiles.each do |file|
+          if @targetFolder.isExist?(file)
+              next
+          else
+              puts "Copy file #{file} to dir #{@targetFolder.to_s}"
+              @counter = @counter + 1
+              @targetFolder.add(file)
+          end
+      end
+  end
+  
+  def printResult
+      if @counter > 1
+        puts "back up success, #{@counter} entries are backed up"
+      elsif @counter == 1
+        puts "back up success, 1 entry is backed up"
+      else
+        puts "no entries are backed up"
+      end
+  end
+  
 end
-
-printResult(counter)

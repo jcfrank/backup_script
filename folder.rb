@@ -20,4 +20,8 @@ class Folder
         targetPath = @path + File.basename(file)
         FileUtils.copy_entry(file,targetPath)
     end
+    
+    def to_s
+        @path
+    end
 end
