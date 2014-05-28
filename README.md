@@ -1,8 +1,12 @@
-This is a simple script to backup files/folders from source folder to target folder. 
+# Overview
+A fork from backup script.
+And refactored.
 
-#Execute
-Enter the code base folder and execute "ruby main.rb", it will backup files from "ori" folder to "target" folder.
-If there is a file with the same name at target folder, it will simply jump to next file without copy it.
+# Execute
+./backup.rb
+Copy files in ./ori/ to ./target/ .
+If there is a file with the same name at target folder, it will skip to next file.
 
-#Customize
-Change "sourcePath" and "targetPath" in main.rb, then you can backup any local folder to another local folder
+# Customize
+./backup.rb --from source/ --to target/
+
