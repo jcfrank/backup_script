@@ -45,7 +45,7 @@ class Folder
 end
 
 class BackupAction
-  def set_options(options)
+  def initialize(options)
       @sourceFolder = Folder.new options[:from]
       @targetFolder = Folder.new options[:to]
   end
@@ -77,8 +77,7 @@ class BackupAction
 end
 
 if __FILE__ == $0
-    action = BackupAction.new
-    action.set_options(options)
+    action = BackupAction.new(options)
     action.backup
 end
 
