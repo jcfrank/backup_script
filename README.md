@@ -6,15 +6,15 @@ And refactored.
 
 ## Execute
 
-./backup.rb
+    ./backup.rb
 
-Copy files in ./ori/ to ./target/ .
+Copy files in `./ori/` to `./target/` .
 
 If there is a file with the same name at target folder, it will skip to next file.
 
 ## Customize
 
-./backup.rb --from source/ --to target/
+    ./backup.rb --from source/ --to target/
 
 ## Why not just 'cp -r source/* target/'?
 
