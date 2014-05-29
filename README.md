@@ -16,7 +16,7 @@ If there is a file with the same name at target folder, it will skip to next fil
 
     ./backup.rb --from source/ --to target/
 
-## Why not just 'cp -r source/* target/'?
+## Why not just `cp -nr source/* target/`?
 
-... I don't know
+cp is only in unix like systems, in Windows there is a different command.
 
