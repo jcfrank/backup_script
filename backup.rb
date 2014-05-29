@@ -2,24 +2,23 @@
 require 'optparse'
 require 'fileutils'
 
-options = {}
-options[:from] = './ori/'
-options[:to] = './target/'
+def parse_options(options)
+    OptionParser.new do |opts|
+        opts.banner = 'Usage: backup.rb [options]'
+        opts.on('-h', '--help', 'Help') do
+            puts opts
+            exit
+        end
 
-parser = OptionParser.new do |opts|
-    opts.banner = 'Usage: backup.rb [options]'
-    opts.on('-h', '--help', 'Help') do
-        puts opts
-    end
+        opts.on('-f', '--from source', 'From which folder') do |source|
+            options[:from] = source
+        end
 
-    opts.on('-f', '--from source', 'From which folder') do |source|
-        options[:from] = source
+        opts.on('-t', '--to target', 'To which folder') do |target|
+            options[:to] = target
+        end
+        opts.parse!
     end
-
-    opts.on('-t', '--to target', 'To which folder') do |target|
-        options[:to] = target
-    end
-    opts.parse!
 end
 
 class Folder
@@ -77,6 +76,11 @@ class BackupAction
 end
 
 if __FILE__ == $0
+    options = {}
+    options[:from] = './ori/'
+    options[:to] = './target/'
+    parse_options(options)
+
     action = BackupAction.new(options)
     action.backup
 end
